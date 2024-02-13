@@ -4,7 +4,7 @@
   <metadata>
     <id>perimeter81</id>
     <title>Perimeter 81</title>
-    <version>10.4.2.1645</version>
+    <version>10.4.2.1646</version>
     <authors>Perimeter 81</authors>
     <owners>chocolatey-community</owners>
     <summary>Perimeter 81 client to connect to networks managed by Perimeter 81</summary>
