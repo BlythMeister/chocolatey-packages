@@ -4,7 +4,7 @@
   <metadata>
     <id>perimeter81</id>
     <title>Perimeter 81</title>
-    <version>10.4.2.1646</version>
+    <version>10.4.2.1647</version>
     <authors>Perimeter 81</authors>
     <owners>chocolatey-community</owners>
     <summary>Perimeter 81 client to connect to networks managed by Perimeter 81</summary>
@@ -17,7 +17,7 @@ Delivering simpler, smarter, and more accessible network security to meet the de
     <tags>perimeter81 networking</tags>
     <licenseUrl>https://support.perimeter81.com/docs/open-source-software-licenses-and-notices</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/perimeter81.jpg</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/perimeter81.png</iconUrl>
     <docsUrl>https://support.perimeter81.com/docs/</docsUrl>
     <releaseNotes>https://support.perimeter81.com/docs/windows-agent-release-notes</releaseNotes>
   </metadata>
