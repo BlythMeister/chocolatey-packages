@@ -4,7 +4,7 @@
   <metadata>
     <id>harmony-sase</id>
     <title>Perimeter 81</title>
-    <version>11.0.0.2050</version>
+    <version>11.0.1.2083</version>
     <authors>Perimeter 81</authors>
     <owners>chocolatey-community</owners>
     <summary>Perimeter 81 client to connect to networks managed by Perimeter 81</summary>
