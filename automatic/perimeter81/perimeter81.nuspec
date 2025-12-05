@@ -7,19 +7,22 @@
     <version>12.1.0.9079</version>
     <authors>Perimeter 81</authors>
     <owners>BlythMeister</owners>
-    <summary>Perimeter 81 client to connect to networks managed by Perimeter 81</summary>
-    <description><![CDATA[Perimeter 81 client to connect to networks managed by Perimeter 81
+    <summary>Pseudo package that installs the Harmony SASE client</summary>
+    <description><![CDATA[Perimeter 81 has been rebranded to Harmony SASE.
 
-Delivering simpler, smarter, and more accessible network security to meet the demands of today, and the growth of tomorrow.
-]]></description>
+  This package no longer contains the installer. Instead, it pulls in the [`harmony-sase`](https://chocolatey.org/packages/harmony-sase) package so you always receive the official Harmony SASE build from Check Point / Perimeter 81.
+  ]]></description>
     <projectUrl>https://www.perimeter81.com/</projectUrl>
     <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/perimeter81</packageSourceUrl>
-    <tags>perimeter81 networking</tags>
+    <tags>perimeter81 networking harmony-sase virtual meta</tags>
     <licenseUrl>https://support.perimeter81.com/docs/open-source-software-licenses-and-notices</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/perimeter81.png</iconUrl>
     <docsUrl>https://support.perimeter81.com/docs/</docsUrl>
     <releaseNotes>https://support.perimeter81.com/docs/windows-agent-release-notes</releaseNotes>
+    <dependencies>
+      <dependency id="harmony-sase" />
+    </dependencies>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
