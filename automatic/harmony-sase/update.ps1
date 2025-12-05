@@ -2,6 +2,8 @@
 
 $releases = "https://support.perimeter81.com/docs/windows-agent-release-notes"
 $downloadBase = "https://static.perimeter81.com/agents/windows"
+$versionPattern = [regex]"Windows agent\s+(\d+\.\d+\.\d+\.\d+)"
+$webHeaders = @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AuScript' }
 
 function global:au_SearchReplace {
   @{
@@ -19,12 +21,24 @@ function global:au_BeforeUpdate {
   $Latest.Checksum32 = Get-RemoteChecksum -Algorithm $Latest.ChecksumType32 -Url $Latest.URL32
 }
 
-function global:au_GetLatest {
-  $download_page = Invoke-WebRequest $releases
+function Get-WindowsAgentVersion {
+  param(
+    [string]$Content
+  )
 
-  $latest = $download_page.AllElements | Where-Object innerText -match "^Windows agent (\d+\.\d+\.\d+\.\d+).*$" | Select-Object -First 1
-  $version = Get-Version $Matches[1]
-  $downloadUrl = "$($downloadBase)/Harmony_SASE_$($version).msi"
+  $match = $versionPattern.Match($Content)
+  if (-not $match.Success) {
+    throw "Unable to find 'Windows agent <version>' text on $releases"
+  }
+
+  return Get-Version $match.Groups[1].Value
+}
+
+function global:au_GetLatest {
+  $download_page = Invoke-WebRequest -Uri $releases -Headers $webHeaders
+
+  $version = Get-WindowsAgentVersion -Content $download_page.Content
+  $downloadUrl = "$( $downloadBase )/Harmony_SASE_$( $version ).msi"
 
   return @{
     URL32 = $downloadUrl
