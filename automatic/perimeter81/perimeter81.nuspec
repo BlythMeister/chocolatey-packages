@@ -4,14 +4,14 @@
   <metadata>
     <id>perimeter81</id>
     <title>Perimeter 81</title>
-    <version>12.1.0.9079</version>
+    <version>12.2.0.9608</version>
     <authors>Perimeter 81</authors>
     <owners>BlythMeister</owners>
     <summary>Pseudo package that installs the Harmony SASE client</summary>
     <description><![CDATA[Perimeter 81 has been rebranded to Harmony SASE.
 
-  This package no longer contains the installer. Instead, it pulls in the [`harmony-sase`](https://chocolatey.org/packages/harmony-sase) package so you always receive the official Harmony SASE build from Check Point / Perimeter 81.
-  ]]></description>
+This package no longer contains the installer. Instead, it pulls in the [`harmony-sase`](https://chocolatey.org/packages/harmony-sase) package so you always receive the official Harmony SASE build from Check Point / Perimeter 81.
+]]></description>
     <projectUrl>https://www.perimeter81.com/</projectUrl>
     <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/perimeter81</packageSourceUrl>
     <tags>perimeter81 networking harmony-sase virtual meta</tags>
