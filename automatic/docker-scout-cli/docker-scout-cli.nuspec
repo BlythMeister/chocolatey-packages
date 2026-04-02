@@ -13,9 +13,11 @@ The package downloads the official Docker Scout Windows x64 release and installs
 
 You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path.
 ]]></description>
+    <licenseUrl>https://www.docker.com/legal/docker-subscription-service-agreement/</licenseUrl>
     <projectUrl>https://github.com/docker/scout-cli</projectUrl>
     <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/docker-scout-cli</packageSourceUrl>
     <docsUrl>https://docs.docker.com/scout/install/</docsUrl>
+    <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/docker.png</iconUrl>
     <releaseNotes>https://github.com/docker/scout-cli/releases</releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>docker scout cli sbom security plugin build-agent machine-wide</tags>

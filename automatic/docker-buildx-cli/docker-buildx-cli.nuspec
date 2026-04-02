@@ -13,8 +13,10 @@ The package downloads the official Docker Buildx Windows x64 release and install
 
 You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path.
 ]]></description>
+    <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/docker/buildx</projectUrl>
     <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/docker-buildx-cli</packageSourceUrl>
+    <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/docker.png</iconUrl>
     <releaseNotes>https://github.com/docker/buildx/releases</releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>docker buildx cli plugin build-agent machine-wide</tags>
