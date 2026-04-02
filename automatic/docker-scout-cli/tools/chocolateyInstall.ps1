@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 $toolsPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 . (Join-Path $toolsPath 'DockerScoutCli.Helpers.ps1')
 
-$Url64 = 'https://github.com/docker/scout-cli/releases/download/v1.20.3/docker-scout_1.20.3_windows_amd64.zip'
+$Url64 = 'https://github.com/docker/scout-cli/releases/download/v1.203/docker-scout_1.20.3_windows_amd64.zip'
 $Checksum64 = '8ed01dd39c7646187ef9f631952df226b84829b0ffe2f57600057f64be73fda3'
 $ChecksumType64 = 'sha256'
 
