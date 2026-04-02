@@ -3,18 +3,18 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata>
     <id>harmony-sase</id>
-    <title>Perimeter 81</title>
+    <title>Harmony SASE</title>
     <version>12.7.0.13190</version>
-    <authors>Perimeter 81</authors>
+    <authors>Check Point</authors>
     <owners>chocolatey-community</owners>
-    <summary>Perimeter 81 client to connect to networks managed by Perimeter 81</summary>
+    <summary>Harmony SASE client to connect to networks managed by Harmony SASE / Perimeter 81</summary>
     <description><![CDATA[Harmony SASE client to connect to networks managed by Harmony SASE / Perimeter 81
 
 Delivering simpler, smarter, and more accessible network security to meet the demands of today, and the growth of tomorrow.
 ]]></description>
-    <projectUrl>https://www.perimeter81.com/</projectUrl>
-    <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/perimeter81</packageSourceUrl>
-    <tags>perimeter81 networking</tags>
+    <projectUrl>https://sase.checkpoint.com/</projectUrl>
+    <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/harmony-sase</packageSourceUrl>
+    <tags>harmony-sase networking</tags>
     <licenseUrl>https://support.perimeter81.com/docs/open-source-software-licenses-and-notices</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/perimeter81.png</iconUrl>
