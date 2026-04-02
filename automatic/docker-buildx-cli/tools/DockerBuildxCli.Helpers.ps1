@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-function Get-DockerScoutCliPackageParameters {
+function Get-DockerBuildxCliPackageParameters {
     $parameters = @{}
 
     if (Get-Command Get-PackageParameters -ErrorAction SilentlyContinue) {
@@ -22,22 +22,22 @@ function Get-DockerScoutCliPackageParameters {
     return $parameters
 }
 
-function Get-DockerScoutCliMetadataPath {
+function Get-DockerBuildxCliMetadataPath {
     param(
         [Parameter(Mandatory)]
         [string]$ToolsPath
     )
 
-    return Join-Path $ToolsPath 'docker-scout-cli.install.json'
+    return Join-Path $ToolsPath 'docker-buildx-cli.install.json'
 }
 
-function Get-DockerScoutCliInstallMetadata {
+function Get-DockerBuildxCliInstallMetadata {
     param(
         [Parameter(Mandatory)]
         [string]$ToolsPath
     )
 
-    $metadataPath = Get-DockerScoutCliMetadataPath -ToolsPath $ToolsPath
+    $metadataPath = Get-DockerBuildxCliMetadataPath -ToolsPath $ToolsPath
     if (-not (Test-Path $metadataPath)) {
         return $null
     }
@@ -50,7 +50,7 @@ function Get-DockerScoutCliInstallMetadata {
     return $metadataJson | ConvertFrom-Json
 }
 
-function Save-DockerScoutCliInstallMetadata {
+function Save-DockerBuildxCliInstallMetadata {
     param(
         [Parameter(Mandatory)]
         [string]$ToolsPath,
@@ -63,23 +63,23 @@ function Save-DockerScoutCliInstallMetadata {
         PluginDirectory = $PluginDirectory
     }
 
-    $metadataPath = Get-DockerScoutCliMetadataPath -ToolsPath $ToolsPath
+    $metadataPath = Get-DockerBuildxCliMetadataPath -ToolsPath $ToolsPath
     $metadata | ConvertTo-Json | Set-Content -Path $metadataPath -Encoding UTF8
 }
 
-function Remove-DockerScoutCliInstallMetadata {
+function Remove-DockerBuildxCliInstallMetadata {
     param(
         [Parameter(Mandatory)]
         [string]$ToolsPath
     )
 
-    $metadataPath = Get-DockerScoutCliMetadataPath -ToolsPath $ToolsPath
+    $metadataPath = Get-DockerBuildxCliMetadataPath -ToolsPath $ToolsPath
     if (Test-Path $metadataPath) {
         Remove-Item -Path $metadataPath -Force
     }
 }
 
-function Get-DockerScoutCliPluginDirectory {
+function Get-DockerBuildxCliPluginDirectory {
     param(
         [Parameter(Mandatory)]
         [hashtable]$PackageParameters,
@@ -96,7 +96,7 @@ function Get-DockerScoutCliPluginDirectory {
         $pluginDirectory = [Environment]::ExpandEnvironmentVariables([string]$PackageParameters['PluginDirectory'])
     }
     elseif ($AllowMetadataFallback.IsPresent) {
-        $metadata = Get-DockerScoutCliInstallMetadata -ToolsPath $ToolsPath
+        $metadata = Get-DockerBuildxCliInstallMetadata -ToolsPath $ToolsPath
         if ($null -ne $metadata -and -not [string]::IsNullOrWhiteSpace([string]$metadata.PluginDirectory)) {
             $pluginDirectory = [string]$metadata.PluginDirectory
         }

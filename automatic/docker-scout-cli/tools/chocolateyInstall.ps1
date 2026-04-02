@@ -8,8 +8,7 @@ $Checksum64 = '8ed01dd39c7646187ef9f631952df226b84829b0ffe2f57600057f64be73fda3'
 $ChecksumType64 = 'sha256'
 
 $packageParameters = Get-DockerScoutCliPackageParameters
-$userProfilePath = Get-DockerScoutCliUserProfilePath -PackageParameters $packageParameters -ToolsPath $toolsPath
-$pluginDirectory = Get-DockerScoutCliPluginDirectory -UserProfilePath $userProfilePath
+$pluginDirectory = Get-DockerScoutCliPluginDirectory -PackageParameters $packageParameters -ToolsPath $toolsPath
 $dockerScoutPath = Join-Path $pluginDirectory 'docker-scout.exe'
 
 $archivePath = Join-Path $env:TEMP "$($env:ChocolateyPackageName)-$($env:ChocolateyPackageVersion)-windows-amd64.zip"
@@ -37,8 +36,7 @@ try {
     New-Item -ItemType Directory -Path $pluginDirectory -Force | Out-Null
     Copy-Item -Path $downloadedExecutablePath -Destination $dockerScoutPath -Force
 
-    Add-DockerScoutCliPluginDirectoryToConfig -UserProfilePath $userProfilePath
-    Save-DockerScoutCliInstallMetadata -ToolsPath $toolsPath -UserProfilePath $userProfilePath
+    Save-DockerScoutCliInstallMetadata -ToolsPath $toolsPath -PluginDirectory $pluginDirectory
 }
 finally {
     if (Test-Path $archivePath) {

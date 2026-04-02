@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata>
+    <id>docker-buildx-cli</id>
+    <title>Docker Buildx CLI</title>
+    <version>0.33.0</version>
+    <authors>Docker Inc.</authors>
+    <owners>BlythMeister</owners>
+    <summary>Installs the Docker Buildx CLI plugin for Windows</summary>
+    <description><![CDATA[Installs the Docker Buildx CLI plugin for Windows into Docker's machine-wide CLI plugin directory so it is available to all users on the machine.
+
+The package downloads the official Docker Buildx Windows x64 release and installs `docker-buildx.exe` into `C:\ProgramData\Docker\cli-plugins` by default.
+
+You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path.
+]]></description>
+    <projectUrl>https://github.com/docker/buildx</projectUrl>
+    <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/docker-buildx-cli</packageSourceUrl>
+    <releaseNotes>https://github.com/docker/buildx/releases</releaseNotes>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>docker buildx cli plugin build-agent machine-wide</tags>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

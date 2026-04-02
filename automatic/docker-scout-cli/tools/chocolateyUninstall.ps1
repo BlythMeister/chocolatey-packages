@@ -4,8 +4,7 @@ $toolsPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 . (Join-Path $toolsPath 'DockerScoutCli.Helpers.ps1')
 
 $packageParameters = Get-DockerScoutCliPackageParameters
-$userProfilePath = Get-DockerScoutCliUserProfilePath -PackageParameters $packageParameters -ToolsPath $toolsPath -AllowMetadataFallback
-$pluginDirectory = Get-DockerScoutCliPluginDirectory -UserProfilePath $userProfilePath
+$pluginDirectory = Get-DockerScoutCliPluginDirectory -PackageParameters $packageParameters -ToolsPath $toolsPath -AllowMetadataFallback
 $dockerScoutPath = Join-Path $pluginDirectory 'docker-scout.exe'
 
 if (Test-Path $dockerScoutPath) {
@@ -19,5 +18,4 @@ if (Test-Path $pluginDirectory) {
     }
 }
 
-Remove-DockerScoutCliPluginDirectoryFromConfig -UserProfilePath $userProfilePath
 Remove-DockerScoutCliInstallMetadata -ToolsPath $toolsPath

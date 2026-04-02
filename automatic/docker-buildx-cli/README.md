@@ -1,8 +1,8 @@
-# [docker-scout-cli](https://github.com/docker/scout-cli)
+# [docker-buildx-cli](https://github.com/docker/buildx)
 
-Chocolatey package for the official Docker Scout CLI plugin on Windows.
+Chocolatey package for the official Docker Buildx CLI plugin on Windows.
 
-This package installs `docker-scout.exe` into Docker's machine-wide CLI plugin directory so the plugin is available for all users on the machine.
+This package installs `docker-buildx.exe` into Docker's machine-wide CLI plugin directory so the plugin is available for all users on the machine.
 
 ## Parameters
 
@@ -15,20 +15,20 @@ Optional:
 Install to the default machine-wide plugin directory:
 
 ```powershell
-choco install docker-scout-cli
+choco install docker-buildx-cli
 ```
 
 Install to an explicit plugin directory:
 
 ```powershell
-choco install docker-scout-cli --params "'/PluginDirectory:D:\Docker\cli-plugins'"
+choco install docker-buildx-cli --params "'/PluginDirectory:D:\Docker\cli-plugins'"
 ```
 
 ## Installed layout
 
 The package creates:
 
-- `C:\ProgramData\Docker\cli-plugins\docker-scout.exe` by default
+- `C:\ProgramData\Docker\cli-plugins\docker-buildx.exe` by default
 
 ## Notes
 

@@ -6,19 +6,19 @@
     <version>1.20.3</version>
     <authors>Docker Inc.</authors>
     <owners>BlythMeister</owners>
-    <summary>Installs the Docker Scout CLI plugin for a target Windows user profile</summary>
-    <description><![CDATA[Installs the Docker Scout CLI plugin for Windows and configures Docker CLI plugin discovery for a specific user profile.
+    <summary>Installs the Docker Scout CLI plugin for Windows</summary>
+    <description><![CDATA[Installs the Docker Scout CLI plugin for Windows into Docker's machine-wide CLI plugin directory so it is available to all users on the machine.
 
-The package downloads the official Docker Scout Windows x64 release, installs `docker-scout.exe` into the target profile's `.docker\scout` directory, and updates `.docker\config.json` to include that directory in `cliPluginsExtraDirs`.
+The package downloads the official Docker Scout Windows x64 release and installs `docker-scout.exe` into `C:\ProgramData\Docker\cli-plugins` by default.
 
-You must provide either `/UserProfileName=<name>` or `/UserProfilePath=<path>` as package parameters so the plugin is installed into the correct user profile for your build agent or service account.
+You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path.
 ]]></description>
     <projectUrl>https://github.com/docker/scout-cli</projectUrl>
     <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/docker-scout-cli</packageSourceUrl>
     <docsUrl>https://docs.docker.com/scout/install/</docsUrl>
     <releaseNotes>https://github.com/docker/scout-cli/releases</releaseNotes>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>docker scout cli sbom security plugin build-agent</tags>
+    <tags>docker scout cli sbom security plugin build-agent machine-wide</tags>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
