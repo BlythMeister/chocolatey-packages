@@ -9,9 +9,9 @@ $headers = @{
 function global:au_SearchReplace {
   @{
     '.\tools\chocolateyInstall.ps1' = @{
-      "(?i)(^\s*\$Url64\s*=\s*)('.*')"          = "`$1'$($Latest.URL64)'"
-      "(?i)(^\s*\$Checksum64\s*=\s*)('.*')"     = "`$1'$($Latest.Checksum64)'"
-      "(?i)(^\s*\$ChecksumType64\s*=\s*)('.*')" = "`$1'$($Latest.ChecksumType64)'"
+      '(?i)(^\s*\$Url64\s*=\s*)(''.*'')'          = "`$1'$($Latest.URL64)'"
+      '(?i)(^\s*\$Checksum64\s*=\s*)(''.*'')'     = "`$1'$($Latest.Checksum64)'"
+      '(?i)(^\s*\$ChecksumType64\s*=\s*)(''.*'')' = "`$1'$($Latest.ChecksumType64)'"
     }
   }
 }
