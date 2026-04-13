@@ -20,4 +20,22 @@ Get-ChocolateyWebFile `
     -Checksum64 $Checksum64 `
     -ChecksumType64 $ChecksumType64 | Out-Null
 
+Write-DockerBuildxCliPluginDirectoryWarning -PluginDirectory $pluginDirectory
+
+if (Test-DockerBuildxCliStandardPluginDirectory -PluginDirectory $pluginDirectory) {
+    $dockerCommand = Get-Command docker -CommandType Application -ErrorAction SilentlyContinue
+
+    if ($null -eq $dockerCommand) {
+        Write-Warning 'Docker CLI was not found during package installation. Skipping post-install "docker buildx install" registration.'
+    }
+    else {
+        Write-Host 'Registering Docker Buildx with the Docker CLI'
+        & $dockerCommand.Source buildx install
+
+        if ($LASTEXITCODE -ne 0) {
+            throw "docker buildx install failed with exit code $LASTEXITCODE."
+        }
+    }
+}
+
 Save-DockerBuildxCliInstallMetadata -ToolsPath $toolsPath -PluginDirectory $pluginDirectory

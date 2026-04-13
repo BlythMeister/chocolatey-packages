@@ -35,6 +35,7 @@ try {
 
     New-Item -ItemType Directory -Path $pluginDirectory -Force | Out-Null
     Copy-Item -Path $downloadedExecutablePath -Destination $dockerScoutPath -Force
+    Write-DockerScoutCliPluginDirectoryWarning -PluginDirectory $pluginDirectory
 
     Save-DockerScoutCliInstallMetadata -ToolsPath $toolsPath -PluginDirectory $pluginDirectory
 }

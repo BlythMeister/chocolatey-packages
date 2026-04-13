@@ -9,9 +9,9 @@
     <summary>Installs the Docker Buildx CLI plugin for Windows</summary>
     <description><![CDATA[Installs the Docker Buildx CLI plugin for Windows into Docker's machine-wide CLI plugin directory so it is available to all users on the machine.
 
-The package downloads the official Docker Buildx Windows x64 release and installs `docker-buildx.exe` into `C:\ProgramData\Docker\cli-plugins` by default.
+The package downloads the official Docker Buildx Windows x64 release, installs `docker-buildx.exe` into `C:\ProgramData\Docker\cli-plugins` by default, and runs `docker buildx install` when the Docker CLI is available during installation.
 
-You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path.
+You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path. Non-standard plugin directories must also be configured in Docker before the CLI will discover the plugin automatically.
 ]]></description>
     <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/docker/buildx</projectUrl>

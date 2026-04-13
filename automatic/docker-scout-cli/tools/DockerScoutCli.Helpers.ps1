@@ -108,3 +108,48 @@ function Get-DockerScoutCliPluginDirectory {
 
     return [System.IO.Path]::GetFullPath($pluginDirectory)
 }
+
+function Get-DockerScoutCliStandardPluginDirectories {
+    $standardDirectories = @()
+
+    if (-not [string]::IsNullOrWhiteSpace($env:USERPROFILE)) {
+        $standardDirectories += Join-Path $env:USERPROFILE '.docker\cli-plugins'
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($env:ProgramData)) {
+        $standardDirectories += Join-Path $env:ProgramData 'Docker\cli-plugins'
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($env:ProgramFiles)) {
+        $standardDirectories += Join-Path $env:ProgramFiles 'Docker\cli-plugins'
+    }
+
+    return $standardDirectories |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+        ForEach-Object { [System.IO.Path]::GetFullPath($_) } |
+        Select-Object -Unique
+}
+
+function Test-DockerScoutCliStandardPluginDirectory {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PluginDirectory
+    )
+
+    $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
+    return $normalisedPluginDirectory -in (Get-DockerScoutCliStandardPluginDirectories)
+}
+
+function Write-DockerScoutCliPluginDirectoryWarning {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PluginDirectory
+    )
+
+    if (Test-DockerScoutCliStandardPluginDirectory -PluginDirectory $PluginDirectory) {
+        return
+    }
+
+    $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
+    Write-Warning "The plugin directory '$normalisedPluginDirectory' is not one of Docker's standard Windows CLI plugin directories. Docker will only discover the plugin automatically if that directory is configured separately in the Docker CLI settings."
+}

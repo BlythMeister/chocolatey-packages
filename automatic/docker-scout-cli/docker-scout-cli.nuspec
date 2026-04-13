@@ -11,7 +11,7 @@
 
 The package downloads the official Docker Scout Windows x64 release and installs `docker-scout.exe` into `C:\ProgramData\Docker\cli-plugins` by default.
 
-You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path.
+You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you need a non-standard installation path. Non-standard plugin directories must also be configured in Docker before the CLI will discover the plugin automatically.
 ]]></description>
     <licenseUrl>https://www.docker.com/legal/docker-subscription-service-agreement/</licenseUrl>
     <projectUrl>https://github.com/docker/scout-cli</projectUrl>
