@@ -33,5 +33,5 @@ The package creates:
 ## Notes
 
 - Windows x64 only
-- Docker CLI must already be installed and available separately
+- Docker CLI is a dependency
 - The default install location is Docker's machine-wide CLI plugin directory
