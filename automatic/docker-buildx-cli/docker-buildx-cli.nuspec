@@ -21,7 +21,7 @@ You can override the plugin directory with the optional `/PluginDirectory=<path>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>docker buildx cli plugin build-agent machine-wide</tags>
     <dependencies>
-      <dependency id="docker-cli" />
+      <dependency id="docker-cli" version="29.0.0" />
     </dependencies>
   </metadata>
   <files>
