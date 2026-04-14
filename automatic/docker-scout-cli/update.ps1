@@ -1,6 +1,6 @@
 import-module au
 
-$releasesUrl = 'https://api.github.com/repos/docker/scout-cli/releases/latest'
+$releasesUrl = 'https://api.github.com/repos/docker/scout-cli/releases/298919514'
 $assetPattern = '^docker-scout_(?<Version>\d+\.\d+\.\d+)_windows_amd64\.zip$'
 $headers = @{
   'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AuScript'
