@@ -56,11 +56,19 @@ function Save-DockerScoutCliInstallMetadata {
         [string]$ToolsPath,
 
         [Parameter(Mandatory)]
-        [string]$PluginDirectory
+        [string]$PluginDirectory,
+
+        [Parameter(Mandatory)]
+        [string]$ConfigPath,
+
+        [Parameter(Mandatory)]
+        [bool]$AddedCliPluginsExtraDir
     )
 
     $metadata = [pscustomobject]@{
-        PluginDirectory = $PluginDirectory
+        PluginDirectory         = $PluginDirectory
+        ConfigPath              = $ConfigPath
+        AddedCliPluginsExtraDir = $AddedCliPluginsExtraDir
     }
 
     $metadataPath = Get-DockerScoutCliMetadataPath -ToolsPath $ToolsPath
@@ -103,53 +111,97 @@ function Get-DockerScoutCliPluginDirectory {
     }
 
     if ([string]::IsNullOrWhiteSpace($pluginDirectory)) {
-        $pluginDirectory = Join-Path $env:ProgramFiles 'Docker\cli-plugins'
+        $pluginDirectory = Join-Path $env:USERPROFILE '.docker\scout'
     }
 
     return [System.IO.Path]::GetFullPath($pluginDirectory)
 }
 
-function Get-DockerScoutCliStandardPluginDirectories {
-    $standardDirectories = @()
-
-    if (-not [string]::IsNullOrWhiteSpace($env:USERPROFILE)) {
-        $standardDirectories += Join-Path $env:USERPROFILE '.docker\cli-plugins'
-    }
-
-    if (-not [string]::IsNullOrWhiteSpace($env:ProgramData)) {
-        $standardDirectories += Join-Path $env:ProgramData 'Docker\cli-plugins'
-    }
-
-    if (-not [string]::IsNullOrWhiteSpace($env:ProgramFiles)) {
-        $standardDirectories += Join-Path $env:ProgramFiles 'Docker\cli-plugins'
-    }
-
-    return $standardDirectories |
-        Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
-        ForEach-Object { [System.IO.Path]::GetFullPath($_) } |
-        Select-Object -Unique
+function Get-DockerScoutCliConfigPath {
+    $configDirectory = Join-Path $env:USERPROFILE '.docker'
+    return Join-Path $configDirectory 'config.json'
 }
 
-function Test-DockerScoutCliStandardPluginDirectory {
+function Add-DockerScoutCliPluginDirectoryToDockerConfig {
     param(
         [Parameter(Mandatory)]
         [string]$PluginDirectory
     )
+
+    $configPath = Get-DockerScoutCliConfigPath
+    $configDirectory = Split-Path -Parent $configPath
+    New-Item -ItemType Directory -Path $configDirectory -Force | Out-Null
+
+    $config = [pscustomobject]@{}
+    if (Test-Path $configPath) {
+        $configJson = Get-Content -Path $configPath -Raw
+        if (-not [string]::IsNullOrWhiteSpace($configJson)) {
+            $config = $configJson | ConvertFrom-Json
+        }
+    }
 
     $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
-    return $normalisedPluginDirectory -in (Get-DockerScoutCliStandardPluginDirectories)
+    $existingPluginDirectories = @()
+    if ($null -ne $config.PSObject.Properties['cliPluginsExtraDirs']) {
+        $existingPluginDirectories = @($config.cliPluginsExtraDirs | ForEach-Object { [string]$_ })
+    }
+
+    if ($normalisedPluginDirectory -in $existingPluginDirectories) {
+        return $false
+    }
+
+    $updatedPluginDirectories = @($existingPluginDirectories + $normalisedPluginDirectory)
+    if ($null -ne $config.PSObject.Properties['cliPluginsExtraDirs']) {
+        $config.cliPluginsExtraDirs = $updatedPluginDirectories
+    }
+    else {
+        $config | Add-Member -NotePropertyName 'cliPluginsExtraDirs' -NotePropertyValue $updatedPluginDirectories
+    }
+
+    $config | ConvertTo-Json -Depth 20 | Set-Content -Path $configPath -Encoding UTF8
+    return $true
 }
 
-function Write-DockerScoutCliPluginDirectoryWarning {
+function Remove-DockerScoutCliPluginDirectoryFromDockerConfig {
     param(
         [Parameter(Mandatory)]
-        [string]$PluginDirectory
+        [string]$PluginDirectory,
+
+        [Parameter(Mandatory)]
+        [string]$ConfigPath
     )
 
-    if (Test-DockerScoutCliStandardPluginDirectory -PluginDirectory $PluginDirectory) {
+    if (-not (Test-Path $ConfigPath)) {
+        return
+    }
+
+    $configJson = Get-Content -Path $ConfigPath -Raw
+    if ([string]::IsNullOrWhiteSpace($configJson)) {
+        return
+    }
+
+    $config = $configJson | ConvertFrom-Json
+    if ($null -eq $config.PSObject.Properties['cliPluginsExtraDirs']) {
         return
     }
 
     $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
-    Write-Warning "The plugin directory '$normalisedPluginDirectory' is not one of Docker's standard Windows CLI plugin directories. Docker will only discover the plugin automatically if that directory is configured separately in the Docker CLI settings."
+    $remainingPluginDirectories = @(
+        $config.cliPluginsExtraDirs |
+            ForEach-Object { [string]$_ } |
+            Where-Object { $_ -ne $normalisedPluginDirectory }
+    )
+
+    if ($remainingPluginDirectories.Count -eq @($config.cliPluginsExtraDirs).Count) {
+        return
+    }
+
+    if ($remainingPluginDirectories.Count -eq 0) {
+        $config.PSObject.Properties.Remove('cliPluginsExtraDirs')
+    }
+    else {
+        $config.cliPluginsExtraDirs = $remainingPluginDirectories
+    }
+
+    $config | ConvertTo-Json -Depth 20 | Set-Content -Path $ConfigPath -Encoding UTF8
 }

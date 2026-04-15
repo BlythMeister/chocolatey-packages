@@ -10,9 +10,11 @@ $ChecksumType64 = 'sha256'
 $packageParameters = Get-DockerScoutCliPackageParameters
 $pluginDirectory = Get-DockerScoutCliPluginDirectory -PackageParameters $packageParameters -ToolsPath $toolsPath
 $dockerScoutPath = Join-Path $pluginDirectory 'docker-scout.exe'
+$configPath = Get-DockerScoutCliConfigPath
 
 $archivePath = Join-Path $env:TEMP "$($env:ChocolateyPackageName)-$($env:ChocolateyPackageVersion)-windows-amd64.zip"
 $extractPath = Join-Path $env:TEMP "$($env:ChocolateyPackageName)-$($env:ChocolateyPackageVersion)-extract"
+$addedCliPluginsExtraDir = $false
 
 try {
     if (Test-Path $extractPath) {
@@ -35,9 +37,13 @@ try {
 
     New-Item -ItemType Directory -Path $pluginDirectory -Force | Out-Null
     Copy-Item -Path $downloadedExecutablePath -Destination $dockerScoutPath -Force
-    Write-DockerScoutCliPluginDirectoryWarning -PluginDirectory $pluginDirectory
+    $addedCliPluginsExtraDir = Add-DockerScoutCliPluginDirectoryToDockerConfig -PluginDirectory $pluginDirectory
 
-    Save-DockerScoutCliInstallMetadata -ToolsPath $toolsPath -PluginDirectory $pluginDirectory
+    Save-DockerScoutCliInstallMetadata `
+        -ToolsPath $toolsPath `
+        -PluginDirectory $pluginDirectory `
+        -ConfigPath $configPath `
+        -AddedCliPluginsExtraDir $addedCliPluginsExtraDir
 }
 finally {
     if (Test-Path $archivePath) {

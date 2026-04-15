@@ -103,7 +103,7 @@ function Get-DockerBuildxCliPluginDirectory {
     }
 
     if ([string]::IsNullOrWhiteSpace($pluginDirectory)) {
-        $pluginDirectory = Join-Path $env:ProgramFiles 'Docker\cli-plugins'
+        $pluginDirectory = Join-Path $env:USERPROFILE '.docker\cli-plugins'
     }
 
     return [System.IO.Path]::GetFullPath($pluginDirectory)

@@ -2,17 +2,17 @@
 
 Chocolatey package for the official Docker Scout CLI plugin on Windows.
 
-This package installs `docker-scout.exe` into Docker's machine-wide CLI plugin directory so the plugin is available for all users on the machine.
+This package installs `docker-scout.exe` using Docker's documented manual installation layout for Windows.
 
 ## Parameters
 
 Optional:
 
-- `/PluginDirectory=<absolute-path>` to override the default machine-wide Docker CLI plugin directory
+- `/PluginDirectory=<absolute-path>` to override the default Docker Scout plugin directory
 
 ## Examples
 
-Install to the default machine-wide plugin directory:
+Install to the default documented plugin directory:
 
 ```powershell
 choco install docker-scout-cli
@@ -28,10 +28,11 @@ choco install docker-scout-cli --params "'/PluginDirectory:D:\Docker\cli-plugins
 
 The package creates:
 
-- `C:\ProgramData\Docker\cli-plugins\docker-scout.exe` by default
+- `%USERPROFILE%\.docker\scout\docker-scout.exe` by default
+- `%USERPROFILE%\.docker\config.json` updated with `cliPluginsExtraDirs`
 
 ## Notes
 
 - Windows x64 only
 - Docker CLI must already be installed and available separately
-- The default install location is Docker's machine-wide CLI plugin directory
+- The default install location and Docker config update match Docker Scout's Windows installation guide
