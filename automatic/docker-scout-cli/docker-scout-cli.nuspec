@@ -3,17 +3,46 @@
   <metadata>
     <id>docker-scout-cli</id>
     <title>Docker Scout CLI</title>
-    <version>1.20.3</version>
+    <version>1.20.4</version>
     <authors>Docker Inc.</authors>
     <owners>BlythMeister</owners>
     <summary>Installs the Docker Scout CLI plugin for Windows</summary>
-    <description><![CDATA[Installs the Docker Scout CLI plugin for Windows using Docker's documented manual installation layout.
+    <description><![CDATA[Chocolatey package for the official Docker Scout CLI plugin on Windows.
 
-The package downloads the official Docker Scout Windows x64 release, installs `docker-scout.exe` into `%USERPROFILE%\.docker\scout` by default, and updates `%USERPROFILE%\.docker\config.json` so Docker discovers the plugin through `cliPluginsExtraDirs`.
+This package installs `docker-scout.exe` using Docker's documented manual installation layout for Windows.
 
-Docker CLI must already be installed separately.
+## Parameters
 
-You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter. The package will add that absolute path to Docker's `cliPluginsExtraDirs` setting during installation.
+Optional:
+
+- `/PluginDirectory=<absolute-path>` to override the default Docker Scout plugin directory
+
+## Examples
+
+Install to the default documented plugin directory:
+
+```powershell
+choco install docker-scout-cli
+```
+
+Install to an explicit plugin directory:
+
+```powershell
+choco install docker-scout-cli --params "'/PluginDirectory:D:\Docker\cli-plugins'"
+```
+
+## Installed layout
+
+The package creates:
+
+- `%USERPROFILE%\.docker\scout\docker-scout.exe` by default
+- `%USERPROFILE%\.docker\config.json` updated with `cliPluginsExtraDirs`
+
+## Notes
+
+- Windows x64 only
+- Docker CLI must already be installed and available separately
+- The default install location and Docker config update match Docker Scout's Windows installation guide
 ]]></description>
     <licenseUrl>https://www.docker.com/legal/docker-subscription-service-agreement/</licenseUrl>
     <projectUrl>https://github.com/docker/scout-cli</projectUrl>
