@@ -13,6 +13,8 @@ The package downloads the official Docker Buildx Windows x64 release and install
 
 Docker CLI must already be installed separately.
 
+If you provide the optional `/SetAsDefaultBuilder` package parameter, the package will check that Docker is available on PATH and then run `docker buildx install` to set Buildx as the default builder.
+
 You can override the plugin directory with the optional `/PluginDirectory=<path>` package parameter if you want to use one of Docker's alternative standard plugin directories such as `C:\ProgramData\Docker\cli-plugins` or `C:\Program Files\Docker\cli-plugins`. Non-standard plugin directories must also be configured in Docker before the CLI will discover the plugin automatically.
 ]]></description>
     <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>

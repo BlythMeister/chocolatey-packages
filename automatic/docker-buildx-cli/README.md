@@ -9,6 +9,7 @@ This package installs `docker-buildx.exe` into Docker's user-scoped CLI plugin d
 Optional:
 
 - `/PluginDirectory=<absolute-path>` to override the default Docker CLI plugin directory
+- `/SetAsDefaultBuilder` to run `docker buildx install` after installation and make Buildx the default builder
 
 ## Examples
 
@@ -16,6 +17,12 @@ Install to the default user-scoped plugin directory:
 
 ```powershell
 choco install docker-buildx-cli
+```
+
+Install and register Buildx as the default builder:
+
+```powershell
+choco install docker-buildx-cli --params "'/SetAsDefaultBuilder'"
 ```
 
 Install to an explicit plugin directory:
@@ -35,3 +42,4 @@ The package creates:
 - Windows x64 only
 - Docker CLI must already be installed and available separately
 - The default install location matches Docker's documented manual installation path for Windows
+- `/SetAsDefaultBuilder` is opt-in and defaults to off, so the package remains validation-safe unless you explicitly request the Docker registration step

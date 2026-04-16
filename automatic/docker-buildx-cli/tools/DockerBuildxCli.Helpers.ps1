@@ -19,7 +19,62 @@ function Get-DockerBuildxCliPackageParameters {
         $parameters[$name] = $value
     }
 
+    $switchPattern = '(?:^|\s)/(?<Name>[A-Za-z0-9]+)(?=\s|$)'
+    foreach ($match in [regex]::Matches($rawParameters, $switchPattern)) {
+        $name = $match.Groups['Name'].Value
+        if (-not $parameters.ContainsKey($name)) {
+            $parameters[$name] = $true
+        }
+    }
+
     return $parameters
+}
+
+function Test-DockerBuildxCliBooleanPackageParameter {
+    param(
+        [Parameter(Mandatory)]
+        [hashtable]$PackageParameters,
+
+        [Parameter(Mandatory)]
+        [string]$Name
+    )
+
+    if (-not $PackageParameters.ContainsKey($Name)) {
+        return $false
+    }
+
+    $parameterValue = $PackageParameters[$Name]
+    if ($parameterValue -is [bool]) {
+        return $parameterValue
+    }
+
+    $normalisedValue = [string]$parameterValue
+    if ([string]::IsNullOrWhiteSpace($normalisedValue)) {
+        return $true
+    }
+
+    switch -Regex ($normalisedValue.Trim()) {
+        '^(1|true|yes|y|on)$' {
+            return $true
+        }
+
+        '^(0|false|no|n|off)$' {
+            return $false
+        }
+
+        default {
+            throw "Unsupported value '$parameterValue' supplied for package parameter '/$Name'. Supported values are true/false, yes/no, on/off, or 1/0."
+        }
+    }
+}
+
+function Test-DockerBuildxCliSetAsDefaultBuilderRequested {
+    param(
+        [Parameter(Mandatory)]
+        [hashtable]$PackageParameters
+    )
+
+    return Test-DockerBuildxCliBooleanPackageParameter -PackageParameters $PackageParameters -Name 'SetAsDefaultBuilder'
 }
 
 function Get-DockerBuildxCliMetadataPath {
