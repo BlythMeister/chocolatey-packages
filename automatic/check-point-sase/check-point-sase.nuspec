@@ -17,7 +17,7 @@ Delivering simpler, smarter, and more accessible network security to meet the de
     <tags>check-point-sase networking</tags>
     <licenseUrl>https://support.perimeter81.com/docs/open-source-software-licenses-and-notices</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/perimeter81.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/check-point-sase.png</iconUrl>
     <docsUrl>https://support.perimeter81.com/docs/</docsUrl>
     <releaseNotes>https://support.perimeter81.com/docs/windows-agent-release-notes</releaseNotes>
   </metadata>
