@@ -122,11 +122,31 @@ function Get-DockerScoutCliConfigPath {
     return Join-Path $configDirectory 'config.json'
 }
 
+function Test-DockerScoutCliUsesCliPluginsExtraDir {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PluginDirectory
+    )
+
+    $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
+    $standardPluginDirectories = @(
+        [System.IO.Path]::GetFullPath('C:\ProgramData\Docker\cli-plugins'),
+        [System.IO.Path]::GetFullPath('C:\Program Files\Docker\cli-plugins')
+    )
+
+    return $normalisedPluginDirectory -notin $standardPluginDirectories
+}
+
 function Add-DockerScoutCliPluginDirectoryToDockerConfig {
     param(
         [Parameter(Mandatory)]
         [string]$PluginDirectory
     )
+
+    $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
+    if (-not (Test-DockerScoutCliUsesCliPluginsExtraDir -PluginDirectory $normalisedPluginDirectory)) {
+        return $false
+    }
 
     $configPath = Get-DockerScoutCliConfigPath
     $configDirectory = Split-Path -Parent $configPath
@@ -140,7 +160,6 @@ function Add-DockerScoutCliPluginDirectoryToDockerConfig {
         }
     }
 
-    $normalisedPluginDirectory = [System.IO.Path]::GetFullPath($PluginDirectory)
     $existingPluginDirectories = @()
     if ($null -ne $config.PSObject.Properties['cliPluginsExtraDirs']) {
         $existingPluginDirectories = @($config.cliPluginsExtraDirs | ForEach-Object { [string]$_ })

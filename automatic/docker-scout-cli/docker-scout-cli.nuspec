@@ -36,7 +36,7 @@ choco install docker-scout-cli --params "'/PluginDirectory:D:\Docker\cli-plugins
 The package creates:
 
 - `%USERPROFILE%\.docker\scout\docker-scout.exe` by default
-- `%USERPROFILE%\.docker\config.json` updated with `cliPluginsExtraDirs`
+- `%USERPROFILE%\.docker\config.json` updated with `cliPluginsExtraDirs` when installing outside `C:\ProgramData\Docker\cli-plugins` or `C:\Program Files\Docker\cli-plugins`
 
 ## Notes
 
