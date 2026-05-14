@@ -1,10 +1,10 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 
 $toolsPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 . (Join-Path $toolsPath 'DockerBuildxCli.Helpers.ps1')
 
-$Url64 = 'https://github.com/docker/buildx/releases/download/v0.33.0/buildx-v0.33.0.windows-amd64.exe'
-$Checksum64 = '832ddf42373203ee3836a7cb3b16fe5080231491e7edb32019ac0f6fe03b99ed'
+$Url64 = 'https://github.com/docker/buildx/releases/download/v0.34.0/buildx-v0.34.0.windows-amd64.exe'
+$Checksum64 = '96a10e259fa1380e7bbf9a3cb04872f201a6e7e331ddeeec8d3e38aa2650ddc5'
 $ChecksumType64 = 'sha256'
 
 $packageParameters = Get-DockerBuildxCliPackageParameters
