@@ -21,9 +21,6 @@ Delivering simpler, smarter, and more accessible network security to meet the de
     <docsUrl>https://support.perimeter81.com/docs/</docsUrl>
     <releaseNotes>https://support.perimeter81.com/docs/windows-agent-release-notes</releaseNotes>
   </metadata>
-  <dependencies>
-	<dependency id="check-point-sase" />
-  </dependencies>
   <files>
     <file src="tools\**" target="tools" />
   </files>

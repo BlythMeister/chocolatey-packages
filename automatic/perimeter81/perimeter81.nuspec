@@ -21,7 +21,7 @@ This package no longer contains the installer. Instead, it pulls in the [`harmon
     <docsUrl>https://support.perimeter81.com/docs/</docsUrl>
     <releaseNotes>https://support.perimeter81.com/docs/windows-agent-release-notes</releaseNotes>
     <dependencies>
-      <dependency id="check-point-sase" />
+      <dependency id="harmony-sase" />
     </dependencies>
   </metadata>
   <files>
