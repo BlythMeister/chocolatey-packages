@@ -3,7 +3,7 @@
   <metadata>
     <id>docker-buildx-cli</id>
     <title>Docker Buildx CLI</title>
-    <version>0.34.0</version>
+    <version>0.34.1</version>
     <authors>Docker Inc.</authors>
     <owners>BlythMeister</owners>
     <summary>Installs the Docker Buildx CLI plugin for Windows</summary>
