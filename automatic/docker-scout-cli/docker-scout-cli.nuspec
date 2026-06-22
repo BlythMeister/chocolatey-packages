@@ -3,7 +3,7 @@
   <metadata>
     <id>docker-scout-cli</id>
     <title>Docker Scout CLI</title>
-    <version>1.21.0</version>
+    <version>1.22.0</version>
     <authors>Docker Inc.</authors>
     <owners>BlythMeister</owners>
     <summary>Installs the Docker Scout CLI plugin for Windows</summary>
