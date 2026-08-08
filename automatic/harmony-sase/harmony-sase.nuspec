@@ -8,9 +8,9 @@
     <authors>Check Point</authors>
     <owners>chocolatey-community</owners>
     <summary>Harmony SASE client to connect to networks managed by Harmony SASE / Perimeter 81</summary>
-    <description><![CDATA[Harmony SASE client to connect to networks managed by Harmony SASE / Perimeter 81
+    <description><![CDATA[Harmony SASE has been rebranded to Checkpoint SASE.
 
-Delivering simpler, smarter, and more accessible network security to meet the demands of today, and the growth of tomorrow.
+This package no longer contains the installer. Instead, it pulls in the [`checkpoint-sase`](https://chocolatey.org/packages/checkpoint-sase) package so you always receive the official Checkpoint SASE build from Check Point.
 ]]></description>
     <projectUrl>https://sase.checkpoint.com/</projectUrl>
     <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/automatic/harmony-sase</packageSourceUrl>
@@ -20,6 +20,9 @@ Delivering simpler, smarter, and more accessible network security to meet the de
     <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/harmony-sase.png</iconUrl>
     <docsUrl>https://support.perimeter81.com/docs/</docsUrl>
     <releaseNotes>https://support.perimeter81.com/docs/windows-agent-release-notes</releaseNotes>
+    <dependencies>
+      <dependency id="checkpoint-sase" />
+    </dependencies>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
