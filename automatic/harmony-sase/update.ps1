@@ -1,8 +1,7 @@
 ﻿import-module au
 
-$releases = "https://support.perimeter81.com/docs/windows-agent-release-notes"
-$downloadBase = "https://static.perimeter81.com/agents/windows"
-$versionPattern = [regex]"Windows agent\s+(\d+\.\d+\.\d+\.\d+)"
+$releases = "https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides/EN/SASE-Admin-Guide/Content/Topics-SASE-AG/Release-Notes/HS-Agent/Windows.htm"
+$versionPattern = [regex]"\d+\.\d+\.\d+\.\d+"
 $webHeaders = @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AuScript' }
 
 function global:au_SearchReplace {
