@@ -27,10 +27,10 @@ function Get-WindowsAgentVersion {
 
   $match = $versionPattern.Match($Content)
   if (-not $match.Success) {
-    throw "Unable to find 'Windows agent <version>' text on $releases"
+    throw "Unable to find version text on $releases"
   }
 
-  return Get-Version $match.Groups[1].Value
+  return Get-Version $match.Value
 }
 
 function global:au_GetLatest {
