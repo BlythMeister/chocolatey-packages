@@ -1,4 +1,4 @@
-﻿import-module au
+import-module au
 
 $downloadBase = "https://static.perimeter81.com/agents/windows"
 $releases = "https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides/EN/SASE-Admin-Guide/Content/Topics-SASE-AG/Release-Notes/HS-Agent/Windows.htm"
