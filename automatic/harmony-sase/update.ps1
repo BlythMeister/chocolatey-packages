@@ -4,6 +4,10 @@ $releases = "https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides
 $versionPattern = [regex]"\d+\.\d+\.\d+\.\d+"
 $webHeaders = @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AuScript' }
 
+function global:au_SearchReplace {
+  @{}
+}
+
 function Get-WindowsAgentVersion {
   param(
     [string]$Content
