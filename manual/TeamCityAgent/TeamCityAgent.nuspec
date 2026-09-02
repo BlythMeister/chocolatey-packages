@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>TeamCityAgent</id>
+        <version>7.0.0</version>
+        <title>TeamCity Build Agent</title>
+        <authors>JetBrains</authors>
+        <owners>blythmeister;jetbrains</owners>
+        <projectUrl>https://www.jetbrains.com/teamcity</projectUrl>
+        <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/manual/TeamCityAgent</packageSourceUrl>
+        <iconUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/icons/teamcity.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>https://www.jetbrains.com/teamcity/buy/</licenseUrl>
+        <docsUrl>https://www.jetbrains.com/teamcity/learn/</docsUrl>
+        <description>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Install requires at least serverUrl parameter, e.g. -params 'serverurl=http://...', also supported are agentName, agentDir, ownPort and possibly others. If looking to see what changes in the agent config files during the run use -v argument to choco.exe.</description>
+        <summary>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Requires parameters!</summary>
+        <copyright>JetBrains s.r.o.</copyright>
+        <releaseNotes>7.0.0 updates to corretto21jdk from corretto11jdk</releaseNotes>
+        <tags>teamcity build agent ci continuous integration admin</tags>
+        <dependencies>
+            <dependency id="corretto21jdk" version="21.0.12.91"/>
+        </dependencies>
+    </metadata>
+</package>
