@@ -1,6 +1,6 @@
 import-module au
 
-$releases = "https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides/EN/SASE-Admin-Guide/Content/Topics-SASE-AG/Release-Notes/HS-Agent/Windows.htm"
+$releases = "https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides/EN/SASE-Admin-Guide/SASE_Security/Topics/windows/windows_agent_release_notes.html"
 $versionPattern = [regex]"\d+\.\d+\.\d+\.\d+"
 $webHeaders = @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AuScript' }
 
