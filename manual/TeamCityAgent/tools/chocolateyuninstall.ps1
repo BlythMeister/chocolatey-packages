@@ -1,17 +1,33 @@
 $ErrorActionPreference = 'Stop'
 
-# Parse parameters using the Chocolatey helper
-$pp = Get-PackageParameters
+$packageName = 'TeamCityAgent'
+$toolsDir    = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+$paramsFile  = Join-Path $toolsDir 'install-parameters.txt'
 
-# Backward-compatibility fallback for legacy semicolon-delimited strings
+# 1. Parse parameters passed directly to uninstall
+$pp = Get-PackageParameters
 if (-not $pp.Count -and $env:chocolateyPackageParameters) {
-    $pp = ConvertFrom-StringData -StringData ($env:chocolateyPackageParameters -replace ';', "`n")
+    # Match install script delimiter handling (spaces or semicolons)
+    $cleanParams = $env:chocolateyPackageParameters -replace ';', "`n" -replace ' ', "`n"
+    $pp = ConvertFrom-StringData -StringData $cleanParams
 }
 
-# Resolve target directory (defaulting to the same install path)
-$agentDir = if ($pp['agentDir']) { $pp['agentDir'] } else { "$env:SystemDrive\buildAgent" }
+# 2. Fall back to saved install parameters if not explicitly provided during uninstall
+if (Test-Path $paramsFile) {
+    Write-Verbose "Reading saved install parameters from $paramsFile"
+    $savedParams = Get-Content $paramsFile -Raw | ConvertFrom-StringData
+    foreach ($key in $savedParams.Keys) {
+        if (-not $pp[$key]) {
+            $pp[$key] = $savedParams[$key]
+        }
+    }
+}
 
-Write-Host "Uninstalling TeamCity Agent from: $agentDir"
+# Resolve target directory and service name
+$agentDir  = if ($pp['agentDir'])  { $pp['agentDir'] }  else { "$env:SystemDrive\buildAgent" }
+$agentName = if ($pp['agentName']) { $pp['agentName'] } else { 'TCBuildAgent' }
+
+Write-Host "Uninstalling TeamCity Agent ($agentName) from: $agentDir"
 
 # -------------------------------------------------------------------------
 # Stop and Uninstall Windows Service
@@ -19,24 +35,26 @@ Write-Host "Uninstalling TeamCity Agent from: $agentDir"
 $serviceStop      = Join-Path $agentDir 'bin\service.stop.bat'
 $serviceUninstall = Join-Path $agentDir 'bin\service.uninstall.bat'
 
-# 1. Gracefully stop via TeamCity script if present
+# Gracefully stop via TeamCity script if present
 if (Test-Path $serviceStop) {
-    Write-Host "Stopping TeamCity Agent service..."
-    Start-ChocolateyProcessAsAdmin "/C `"$serviceStop`"" cmd
+    Write-Host "Stopping TeamCity Agent service via service.stop.bat..."
+    Start-ChocolateyProcessAsAdmin "Set-Location `"$agentDir\bin`"; Start-Process -FilePath .\service.stop.bat -Wait"
 }
 
-# 2. Uninstall service via TeamCity script
+# Uninstall service via TeamCity script
 if (Test-Path $serviceUninstall) {
-    Write-Host "Uninstalling TeamCity Agent service..."
-    Start-ChocolateyProcessAsAdmin "/C `"$serviceUninstall`"" cmd
+    Write-Host "Uninstalling TeamCity Agent service via service.uninstall.bat..."
+    Start-ChocolateyProcessAsAdmin "Set-Location `"$agentDir\bin`"; Start-Process -FilePath .\service.uninstall.bat -Wait"
 }
-else {
-    # Fallback in case directory was partially removed or service scripts are missing
-    $tcService = Get-Service -Name "TCBuildAgent" -ErrorAction SilentlyContinue
-    if ($tcService) {
-        Write-Host "Stopping and deleting TCBuildAgent Windows service via sc.exe..."
-        Stop-Service -Name "TCBuildAgent" -Force -ErrorAction SilentlyContinue
-        & sc.exe delete "TCBuildAgent" | Out-Null
+
+# Fallback: Check if service is still registered under $agentName or TCBuildAgent
+$serviceNames = @($agentName, 'TCBuildAgent') | Select-Object -Unique
+foreach ($sName in $serviceNames) {
+    $svc = Get-Service -Name $sName -ErrorAction SilentlyContinue
+    if ($svc) {
+        Write-Host "Stopping and removing lingering service '$sName' via sc.exe..."
+        Stop-Service -Name $sName -Force -ErrorAction SilentlyContinue
+        & sc.exe delete "$sName" | Out-Null
     }
 }
 
@@ -45,9 +63,13 @@ else {
 # -------------------------------------------------------------------------
 if (Test-Path $agentDir) {
     Write-Host "Removing agent directory: $agentDir"
-    # Small pause to allow process handles to fully release
     Start-Sleep -Seconds 2
     Remove-Item -Path $agentDir -Recurse -Force -ErrorAction SilentlyContinue
 }
 
-Write-ChocolateySuccess 'TeamCityAgent'
+# Clean up saved parameters file
+if (Test-Path $paramsFile) {
+    Remove-Item -Path $paramsFile -Force -ErrorAction SilentlyContinue
+}
+
+Write-ChocolateySuccess $packageName
