@@ -1,6 +1,5 @@
 ﻿import-module au
 
-$downloadBase = "https://static.perimeter81.com/agents/windows"
 $releases = "https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides/EN/SASE-Admin-Guide/SASE_Security/Topics/windows/windows_agent_release_notes.html"
 $versionPattern = [regex]"\d+\.\d+\.\d+\.\d+"
 $webHeaders = @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AuScript' }
@@ -38,7 +37,7 @@ function global:au_GetLatest {
   $download_page = Invoke-WebRequest -Uri $releases -Headers $webHeaders
 
   $version = Get-WindowsAgentVersion -Content $download_page.Content
-  $downloadUrl = "$( $downloadBase )/Harmony_SASE_$( $version ).msi"
+  $downloadUrl = "https://static.perimeter81.com/agents/windows/CheckPoint_SASE_$( $downloadBase )/Harmony_SASE_$( $version ).msi"
 
   return @{
     URL32 = $downloadUrl
