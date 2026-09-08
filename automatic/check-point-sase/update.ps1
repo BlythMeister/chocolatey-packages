@@ -37,7 +37,7 @@ function global:au_GetLatest {
   $download_page = Invoke-WebRequest -Uri $releases -Headers $webHeaders
 
   $version = Get-WindowsAgentVersion -Content $download_page.Content
-  $downloadUrl = "https://static.perimeter81.com/agents/windows/CheckPoint_SASE_$( $downloadBase )/Harmony_SASE_$( $version ).msi"
+  $downloadUrl = "https://static.perimeter81.com/agents/windows/CheckPoint_SASE_$( $version ).msi"
 
   return @{
     URL32 = $downloadUrl
