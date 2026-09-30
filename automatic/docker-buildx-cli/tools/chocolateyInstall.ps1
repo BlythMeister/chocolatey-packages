@@ -3,8 +3,8 @@
 $toolsPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 . (Join-Path $toolsPath 'DockerBuildxCli.Helpers.ps1')
 
-$Url64 = 'https://github.com/docker/buildx/releases/download/v0.37.1/buildx-v0.37.1.windows-amd64.exe'
-$Checksum64 = '3904abb2802f9bd83a2bf483b35bba81c57a4e0baff981e6886564c461f908b3'
+$Url64 = 'https://github.com/docker/buildx/releases/download/v0.37.2/buildx-v0.37.2.windows-amd64.exe'
+$Checksum64 = '39928ae02c2f4ba8b03ac84a51f3c966a8ffc7588f1f07a956c8620069408638'
 $ChecksumType64 = 'sha256'
 
 $packageParameters = Get-DockerBuildxCliPackageParameters
