@@ -4,7 +4,7 @@
   <metadata>
     <id>harmony-sase</id>
     <title>Harmony SASE</title>
-    <version>13.0.0.19553</version>
+    <version>13.1.0.20369</version>
     <authors>Check Point</authors>
     <owners>chocolatey-community</owners>
     <summary>Harmony SASE client to connect to networks managed by Harmony SASE / Perimeter 81</summary>
