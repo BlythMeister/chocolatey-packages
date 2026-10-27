@@ -8,7 +8,7 @@
         <owners>blythmeister;jetbrains</owners>
         <projectUrl>https://www.jetbrains.com/teamcity</projectUrl>
         <packageSourceUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/manual/TeamCityAgent</packageSourceUrl>
-        <iconUrl>https://github.com/BlythMeister/chocolatey-packages/tree/master/icons/teamcity.png</iconUrl>
+        <iconUrl>https://raw.githubusercontent.com/BlythMeister/chocolatey-packages/master/icons/teamcity.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <licenseUrl>https://www.jetbrains.com/teamcity/buy/</licenseUrl>
         <docsUrl>https://www.jetbrains.com/teamcity/learn/</docsUrl>
