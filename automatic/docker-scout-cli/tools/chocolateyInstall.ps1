@@ -3,8 +3,8 @@
 $toolsPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 . (Join-Path $toolsPath 'DockerScoutCli.Helpers.ps1')
 
-$Url64 = 'https://github.com/docker/scout-cli/releases/download/v1.28.0/docker-scout_1.28.0_windows_amd64.zip'
-$Checksum64 = '87c33cdd4d53d6bd1aa2d90febd4da9399e90a5123ace6bf76769bc19ef0b3ca'
+$Url64 = 'https://github.com/docker/scout-cli/releases/download/v1.29.0/docker-scout_1.29.0_windows_amd64.zip'
+$Checksum64 = 'd55be11f9152244eb3c7f7335519ac9559f33e994d32b38964b8341c8a3337d4'
 $ChecksumType64 = 'sha256'
 
 $packageParameters = Get-DockerScoutCliPackageParameters
